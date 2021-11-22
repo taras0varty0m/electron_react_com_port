@@ -11,7 +11,7 @@ const Form = () => {
     reset,
   } = useForm();
   const onSubmit = (data) => {
-    api.post("/", { text: data.text });
+    api.post("/", { text: data.text }).then(({ data }) => console.log(data));
     reset();
   };
   return (
@@ -26,6 +26,7 @@ const Form = () => {
         <Grid item>
           <TextField
             required
+            multiline
             name="text"
             label=" text"
             fullWidth

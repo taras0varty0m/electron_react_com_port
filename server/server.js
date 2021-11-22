@@ -27,10 +27,12 @@ Api.get("/test", (req, res) => res.status(200).send(`success!`));
 Api.post("/", function (request, response) {
   if (!request.body) return response.sendStatus(400);
   port.write(request.body.text, (err) => {
-    if (err) console.log("Error on write: ", err.message);
-    console.log("message written");
+    if (err) {
+      response.status(400).send(err.message);
+    } else {
+      response.status(200).send(request.body);
+    }
   });
-  response.status(200);
 });
 
 HTTP.listen(9001, () => {
